@@ -37,25 +37,21 @@ def request_access_token():
         'accept': 'application/json',
         'Content-Type': 'application/json'
     }
-
     data = {
         'secret_id': nordigen_id,
         'secret_key': nordigen_key
     }
 
     json_data = json.dumps(data)
-
     response = requests.post(url, headers=headers, data=json_data)
 
     if not response.ok:
         raise Exception(f"ERROR: Error performing CGDApi access token request: {response.text}")
-
     return json.loads(response.text)
 
 
 def request_end_user_agreement():
     access_key = request_access_token()['access']
-
     url = NORDIGEN_API + NORDIGEN_API_USER_AGREEMENT
 
     headers = {
@@ -63,7 +59,6 @@ def request_end_user_agreement():
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {access_key}',
     }
-
     data = {
         'institution_id': CAIXA_GERAL_DEPOSITOS_ID,
         'max_historical_days': '90',
@@ -72,28 +67,23 @@ def request_end_user_agreement():
     }
 
     json_data = json.dumps(data)
-
     response = requests.post(url, headers=headers, data=json_data)
 
     if not response.ok:
         raise Exception(f"ERROR: Error performing CGDApi user agreement: {response.text}")
-
     return json.loads(response.text)
 
 
 def request_build_link(user_agreement):
     access_key = request_access_token()['access']
-
     url = NORDIGEN_API + NORDIGEN_API_REQUISITIONS
+    agreement_id = user_agreement['id']
 
     headers = {
         'accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {access_key}',
     }
-
-    agreement_id = user_agreement['id']
-
     data = {
         'redirect': 'https://www.google.com',
         'institution_id': CAIXA_GERAL_DEPOSITOS_ID,
@@ -106,15 +96,13 @@ def request_build_link(user_agreement):
 
     if not response.ok:
         raise Exception(f"Error: Error performing link requisition: {response.text}")
-
     return json.loads(response.text)
 
 
 def request_bank_list():
     access_key = request_access_token()['access']
-
     url = NORDIGEN_API + NORDIGEN_API_COUNTRY_BANKS.format(country_code=NORDIGEN_COUNTRY_CODE_PORTUGAL)
-
+    
     headers = {
         'accept': 'application/json',
         'Authorization': f'Bearer {access_key}'
@@ -124,13 +112,11 @@ def request_bank_list():
 
     if not response.ok:
         raise Exception(f"Error: Error performing CGDApi request bank list: {response.text}")
-
     return json.loads(response.text)
 
 
 def request_link_accounts(user_link):
     access_key = request_access_token()['access']
-
     url = NORDIGEN_API + NORDIGEN_API_REQUISITIONS + f'{user_link["id"]}'
 
     headers = {
@@ -142,13 +128,11 @@ def request_link_accounts(user_link):
 
     if not response.ok:
         raise Exception(f"Error: Error performing bank list request: {response.text}")
-
     return json.loads(response.text)
 
 
 def request_account_transactions(account_id):
     access_key = request_access_token()['access']
-
     url = NORDIGEN_API + NORDIGEN_API_ACCOUNTS + f'{account_id}/' + 'transactions/'
 
     headers = {
@@ -160,7 +144,6 @@ def request_account_transactions(account_id):
     
     if not response.ok:
         raise Exception(f"Error: Error requesting account transactions: {response.text}")
-
     return json.loads(response.text)
 
 
