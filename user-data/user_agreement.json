@@ -1,1 +1,0 @@
-{"id": "9afb8990-b9ff-4f70-b1b3-cdd0102fdb74", "created": "2023-03-02T03:25:21.677516Z", "max_historical_days": 90, "access_valid_for_days": 90, "access_scope": ["balances", "details", "transactions"], "accepted": null, "institution_id": "CAIXA_GERAL_DEPOSITOS_CGDIPTPL"}
