@@ -25,10 +25,8 @@ nordigen_id = dotenv.get_key(dotenv_path=".env", key_to_get=NORDIGEN_SECRET_ID_E
 
 """
 TODO:
-    - Should I request a new access token in every request? ... maybe?
-    - Throw exceptions when the response code isn't 200. We NEED to do this.
+    - CAIXA_GERAL_DEPOSITOS_ID -> needs to be deleted, everything in here should be generic
 """
-
 
 def request_access_token():
     url = NORDIGEN_API + NORDIGEN_API_NEW_TOKEN
@@ -172,7 +170,7 @@ if __name__ == "__main__":
     #     with open('user_bank_link.json', 'w') as user_bank_link_file:
     #         user_bank_link_file.write(json.dumps(bank_link))
     
-    with open('user_bank_link.json', 'r') as user_bank_link:
+    with open('user-data/user_bank_link.json', 'r') as user_bank_link:
         user_link = json.loads(user_bank_link.read())
         accounts = request_link_accounts(user_link)
 
